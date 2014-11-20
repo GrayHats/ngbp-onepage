@@ -9,4 +9,8 @@ angular js boilerplate onepage
 git clone https://github.com/GrayHats/ngbp-onepage.git
 ```
 
-enjoy
+enjoy it!
+
+---
+
+made with <3 love by grayhats labs
