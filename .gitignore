@@ -3,3 +3,5 @@
 # Example .gitignore files: https://github.com/github/gitignore
 
 node_modules
+/.sass-cache/
+/dist/

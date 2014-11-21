@@ -6,13 +6,13 @@
     // Defining Routes
     //
     spApp.config(function($routeProvider) {
-    	$routeProvider.when('/link1', {
-    		controller : 'Link1Ctrl',
-    		templateUrl : 'views/about.html'
-    	}).otherwise({
-    		controller : 'HomeCtrl',
-    		templateUrl: 'views/home.html'
-        });
+		$routeProvider.when('/link1', {
+			controller : 'Link1Ctrl',
+			templateUrl : 'views/about.html'
+		}).otherwise({
+			controller : 'HomeCtrl',
+			templateUrl: 'views/home.html'
+		});
     });
     //
     // Controller for Home Page

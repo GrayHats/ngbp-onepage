@@ -7,6 +7,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-conventional-changelog');
 	grunt.loadNpmTasks('grunt-bump');
 	grunt.loadNpmTasks('grunt-ngmin');
@@ -17,11 +18,35 @@ module.exports = function (grunt) {
 	var taskConfig = {
 		pkg: grunt.file.readJSON("package.json"),
 
+		meta: {
+			banner:
+			'/**\n' +
+			' * <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' +
+			' * <%= pkg.homepage %>\n' +
+			' *\n' +
+			' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
+			' * Licensed <%= pkg.licenses.type %> <<%= pkg.licenses.url %>>\n' +
+			' */\n'
+		},
+
 		// clean work dir
 		clean: [
 			'<%= build_dir %>',
 			'<%= compile_dir %>'
 		],
+
+		// sass
+		sass: {
+			dist: {
+				files: [{
+					expand: true,
+					cwd: 'src/styles',
+					src: ['*.scss'],
+					dest: 'dist/css',
+					ext: '.css'
+				}]
+			}
+		},
 
 		// jshint
 		jshint: {
@@ -58,6 +83,7 @@ module.exports = function (grunt) {
 	grunt.registerTask( 'watch', [ 'build', 'delta' ] );
 
 	grunt.registerTask( 'build', [
-		'clean'
+		'clean', 'jshint', 'sass'
 	]);
+
 };
