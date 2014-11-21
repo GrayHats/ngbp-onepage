@@ -8,10 +8,11 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-sass');
-	grunt.loadNpmTasks('grunt-conventional-changelog');
 	grunt.loadNpmTasks('grunt-bump');
 	grunt.loadNpmTasks('grunt-ngmin');
 	grunt.loadNpmTasks('grunt-html2js');
+
+	grunt.loadNpmTasks('grunt-changelog');
 
 	var usrConfig = require('./config.js');
 
@@ -31,9 +32,17 @@ module.exports = function (grunt) {
 
 		// changelog
 		changelog: {
-			options: {
-				dest: 'CHANGELOG.md',
-				template: 'changelog.tpl'
+			sample: {
+				options: {
+					dest: 'CHANGELOG.md',
+					template: '{{date}} {{pkg.version}} \n\n{{> features}}{{> fixes}}',
+					partials: {
+						features: '{{#each features}}{{> feature}}{{/each}}',
+						feature: '[NEW] {{this}}\n',
+						fixes: '{{#each fixes}}{{> fix}}{{/each}}',
+						fix: '[FIX] {{this}}\n'
+					}
+				}
 			}
 		},
 
