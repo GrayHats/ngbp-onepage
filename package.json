@@ -1,7 +1,7 @@
 {
   "author": "carlo - blackout - denaro",
   "name": "ngbp-onepage",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/GrayHats/ngbp-onepage",
   "licenses": {
     "type": "GPL3",
@@ -10,7 +10,7 @@
   "bugs": "https://github.com/GrayHats/ngbp-onepage/issues",
   "repository": {
     "type": "git",
-    "url": "git@github.com:GrayHats/ngbp-onepage.git"
+    "url": "https://github.com/GrayHats/ngbp-onepage.git"
   },
   "dependencies": {},
   "devDependencies": {
