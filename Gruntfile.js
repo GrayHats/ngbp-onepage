@@ -13,23 +13,17 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-html2js');
 	grunt.loadNpmTasks('grunt-ngmin');
 
-
-
 	var usrConfig = require('./config.js');
 
 	var taskConfig = {
 		pkg: grunt.file.readJSON("package.json"),
 
 		meta: {
-			banner:
+			bannerjs:
 			'/**\n' +
 			' * <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' +
-			' * <%= pkg.homepage %>\n' +
-			' *\n' +
-			' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
-			' * Licensed <%= pkg.licenses.type %> <<%= pkg.licenses.url %>>\n' +
 			' */\n',
-			css:
+			bannercss:
 			'/** <%= pkg.name %> */'
 		},
 
@@ -105,25 +99,25 @@ module.exports = function (grunt) {
 			}
 		},
 
+
 		// uglify
-		/*
 		uglify: {
 			compile_css: {
 				options: {
-					//banner: '<%= meta.banner %>'
+					//banner: '<%= meta.bannerjs %>',
+					mangle:false
 				},
 				files: {
-					'<%= concat.build_css.dest %>': '<%= concat.build_css.dest %>'
+					'<%= build_dir %>/src/js/app.min.js': [ '<%= build_dir %>/src/app/**/*.js' ]
 				}
 			}
 		},
-		*/
 
 		// cssmin
 		cssmin: {
 			compile_css: {
 				options: {
-					banner: '<%= meta.css %>'
+					banner: '<%= meta.bannercss %>'
 				},
 				files: {
 					'<%= concat.build_css.dest %>': '<%= concat.build_css.dest %>'
@@ -164,6 +158,8 @@ module.exports = function (grunt) {
 				tasks: [ 'sass' ]
 			}
 		}
+
+		// -- out
 	};
 
 	grunt.initConfig( grunt.util._.extend( taskConfig, usrConfig ) );
@@ -173,7 +169,8 @@ module.exports = function (grunt) {
 
 	grunt.registerTask( 'build', [
 		'clean', 'jshint', 'copy:build_appjs', 'copy:build_views',
-		'sass', 'concat', 'cssmin'
+		'sass', 'concat', 'cssmin',
+		'uglify'
 	]);
 
 };
