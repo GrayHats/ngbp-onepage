@@ -7,12 +7,13 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-sass');
-	grunt.loadNpmTasks('grunt-bump');
-	grunt.loadNpmTasks('grunt-ngmin');
-	grunt.loadNpmTasks('grunt-html2js');
 
-	grunt.loadNpmTasks('grunt-changelog');
+	grunt.loadNpmTasks('grunt-html2js');
+	grunt.loadNpmTasks('grunt-ngmin');
+
+
 
 	var usrConfig = require('./config.js');
 
@@ -27,10 +28,14 @@ module.exports = function (grunt) {
 			' *\n' +
 			' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
 			' * Licensed <%= pkg.licenses.type %> <<%= pkg.licenses.url %>>\n' +
-			' */\n'
+			' */\n',
+			css:
+			'/** <%= pkg.name %> */'
 		},
 
 		// changelog
+		// grunt.loadNpmTasks('grunt-changelog');
+		/*
 		changelog: {
 			sample: {
 				options: {
@@ -45,12 +50,47 @@ module.exports = function (grunt) {
 				}
 			}
 		},
+		*/
 
 		// clean work dir
 		clean: [
 			'<%= build_dir %>',
 			'<%= compile_dir %>'
 		],
+
+		// concat
+		concat: {
+			build_css: {
+				src: [
+					'<%= vendor_files.css %>',
+					'<%= build_dir %>/src/css/*.css'
+				],
+				dest: '<%= build_dir %>/src/assets/style.css'
+			}
+		},
+
+		// copy
+		copy: {
+			build_appjs: {
+				files: [
+					{
+						src: [ '<%= app_files.js %>' ],
+						dest: '<%= build_dir %>/',
+						//cwd: '.',
+						expand: true
+					}
+				]
+			},
+			build_views: {
+				files: [
+					{
+						src: [ '<%= app_files.views %>' ],
+						dest: '<%= build_dir %>/',
+						expand: true
+					}
+				]
+			}
+		},
 
 		// sass
 		sass: {
@@ -59,9 +99,35 @@ module.exports = function (grunt) {
 					expand: true,
 					cwd: 'src/styles',
 					src: ['*.scss'],
-					dest: 'dist/css',
+					dest: 'dist/src/css',
 					ext: '.css'
 				}]
+			}
+		},
+
+		// uglify
+		/*
+		uglify: {
+			compile_css: {
+				options: {
+					//banner: '<%= meta.banner %>'
+				},
+				files: {
+					'<%= concat.build_css.dest %>': '<%= concat.build_css.dest %>'
+				}
+			}
+		},
+		*/
+
+		// cssmin
+		cssmin: {
+			compile_css: {
+				options: {
+					banner: '<%= meta.css %>'
+				},
+				files: {
+					'<%= concat.build_css.dest %>': '<%= concat.build_css.dest %>'
+				}
 			}
 		},
 
@@ -106,7 +172,8 @@ module.exports = function (grunt) {
 	grunt.registerTask( 'watch', [ 'build', 'delta' ] );
 
 	grunt.registerTask( 'build', [
-		'clean', 'jshint', 'sass'
+		'clean', 'jshint', 'copy:build_appjs', 'copy:build_views',
+		'sass', 'concat', 'cssmin'
 	]);
 
 };
