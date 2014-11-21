@@ -29,6 +29,14 @@ module.exports = function (grunt) {
 			' */\n'
 		},
 
+		// changelog
+		changelog: {
+			options: {
+				dest: 'CHANGELOG.md',
+				template: 'changelog.tpl'
+			}
+		},
+
 		// clean work dir
 		clean: [
 			'<%= build_dir %>',
