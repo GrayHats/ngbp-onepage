@@ -73,6 +73,12 @@ module.exports = function (grunt) {
 					'<%= app_files.js %>'
 				],
 				tasks: [ 'jshint:src' ]
+			},
+			csssrc: {
+				files: [
+					'<%= app_files.css %>'
+				],
+				tasks: [ 'sass' ]
 			}
 		}
 	};
