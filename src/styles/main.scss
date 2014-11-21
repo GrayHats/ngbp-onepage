@@ -1,8 +1,10 @@
+$red: red;
+
 html, body {
 	margin:0px;
 	padding:0px;
 }
 
 #main {
-	border:1px red solid;
+	border:1px $red solid;
 }

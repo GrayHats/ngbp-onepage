@@ -149,13 +149,13 @@ module.exports = function (grunt) {
 				files: [
 					'<%= app_files.js %>'
 				],
-				tasks: [ 'jshint:src' ]
+				tasks: [ 'jshint:src', 'copy:build_appjs', 'uglify' ]
 			},
 			csssrc: {
 				files: [
 					'<%= app_files.css %>'
 				],
-				tasks: [ 'sass' ]
+				tasks: [ 'sass', 'concat:build_css', 'cssmin:compile_css' ]
 			}
 		}
 
@@ -168,9 +168,9 @@ module.exports = function (grunt) {
 	grunt.registerTask( 'watch', [ 'build', 'delta' ] );
 
 	grunt.registerTask( 'build', [
-		'clean', 'jshint', 'copy:build_appjs', 'copy:build_views',
-		'sass', 'concat', 'cssmin',
-		'uglify'
+		'clean', 'copy:build_views',
+		'jshint', 'copy:build_appjs', 'uglify',
+		'sass', 'concat', 'cssmin'
 	]);
 
 };

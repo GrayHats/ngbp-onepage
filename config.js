@@ -3,7 +3,7 @@ module.exports = {
 	compile_dir: 'bin',
 
 	app_files: {
-		js: [ 'src/**/*.js', '!src/**/*.spec.js', '!src/assets/**/*.js' ],
+		js: [ 'src/**/*.js' ],
 		views: [ 'src/**/*.html' ],
 		css: [ 'src/**/*.scss' ]
 	},

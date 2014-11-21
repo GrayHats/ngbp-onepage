@@ -18,11 +18,11 @@
     // Controller for Home Page
     //
     spApp.controller( "HomeCtrl", [ '$scope', function($scope) {
-      $scope.text = 'Hello, this is homepage';
+		$scope.text = 'Hello, this is homepage';
     }]);
     //
     // Controller for Link1 Page
     //
-    spApp.controller( "Link1Ctrl", [ '$scope', function($scope) {
-      $scope.text = 'Hello, this is link1 page';
-    }]);
+	spApp.controller( "Link1Ctrl", [ '$scope', function($scope) {
+		$scope.text = 'Hello, this is link1 page';
+	}]);
