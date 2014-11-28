@@ -102,7 +102,7 @@ module.exports = function (grunt) {
 
 		// uglify
 		uglify: {
-			compile_css: {
+			compile_js: {
 				options: {
 					//banner: '<%= meta.bannerjs %>',
 					mangle:false
