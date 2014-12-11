@@ -172,5 +172,5 @@ module.exports = function (grunt) {
 		'jshint', 'copy:build_appjs', 'uglify',
 		'sass', 'concat', 'cssmin'
 	]);
-
+	grunt.registerTask( 'default', [ 'build' ] );
 };
