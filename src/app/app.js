@@ -15,6 +15,12 @@
 		});
     });
     //
+    // Controller Main
+    //
+    spApp.controller( "Main", [ '$scope', function($scope) {
+		$scope.text = 'Hello, this is homepage';
+    }]);
+    //
     // Controller for Home Page
     //
     spApp.controller( "HomeCtrl", [ '$scope', function($scope) {
