@@ -18,7 +18,11 @@
     // Controller Main
     //
     spApp.controller( "Main", [ '$scope', function($scope) {
-		$scope.text = 'Hello, this is homepage';
+		$scope.menuIsOpen = false;
+
+        $scope.toggle = function(e) {
+            $scope.menuIsOpen = !$scope.menuIsOpen;
+        };
     }]);
     //
     // Controller for Home Page
