@@ -9,6 +9,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-jsinspect');
 
 	grunt.loadNpmTasks('grunt-html2js');
 	grunt.loadNpmTasks('grunt-ngmin');
@@ -142,6 +143,23 @@ module.exports = function (grunt) {
 			globals: {}
 		},
 
+        jsinspect: {
+            examples: {
+                options: {
+                    threshold:   30,
+                    diff:        true,
+                    identifiers: false,
+                    failOnMatch: true,
+                    suppress:    100,
+                    reporter:    'default'
+                },
+                src: [
+                    'src/**/*.js',
+                    '!**/node_modules/**'
+                ]
+            }
+        },
+
 		// delta watch
 		delta: {
 			options: { livereload: true },
@@ -169,7 +187,7 @@ module.exports = function (grunt) {
 
 	grunt.registerTask( 'build', [
 		'clean', 'copy:build_views',
-		'jshint', 'copy:build_appjs', 'uglify',
+		'jshint', 'jsinspect', 'copy:build_appjs', 'uglify',
 		'sass', 'concat', 'cssmin'
 	]);
 	grunt.registerTask( 'default', [ 'build' ] );
